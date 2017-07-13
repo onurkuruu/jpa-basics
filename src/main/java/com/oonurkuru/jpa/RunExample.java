@@ -29,7 +29,6 @@ public class RunExample {
         } catch (InstantiationException e) {
             e.printStackTrace();
         }
-
         if (exampleClass != null) {
             entityManagerFactory = ConnectionUtils.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
             entityManager = ConnectionUtils.createEntityManager(entityManagerFactory);
