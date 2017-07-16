@@ -1,4 +1,20 @@
 # JavaEE JPA
+### Örnekleri Çalıştırmak İçin
+
+Örnekleri çalıştırmak için projeyi masaüstünüze indirin. 
+Windows için cmd komut satırını kullanarak pom.xml dosyasının bulunduğu klasöre giriniz.
+
+```
+mvn install
+```
+
+komutu ile bağımlılıkları yükleyin ve projeyi derleyin.
+
+```
+mvn exec:java -Dexec.mainClass="com.oonurkuru.jpa.RunExample"
+```
+
+komutunu kullanarak projeyi çalıştırın.
 
 İçindekiler
 
@@ -85,7 +101,7 @@ public class Cat extends Animal {
 ```
 **DiscriminatorValue**, **DiscriminatorColumn** ile belirtilen alan adının tablo için karşılığının ne olacağını belirtiyoruz. Bu işlemlerden sonra yeni bir **Cat** nesnesi veri tabanına kayıt edildiğinde **animalId, owner, numberOfLegs, vegetarian, hunter** alanlarının yanı sıra **animal_type** alanı, **cat** olan bir satır oluşturulacaktır.
 
-[Single Table Strategy Mapping kodları](https://github.com/onurkuruu/jpa-basics/tree/master/src/main/java/com/oonurkuru/jpa/domains/Inheritance/SingleTableStrategy) ve [Kodları Çalıştırmak İçin](https://github.com/onurkuruu/jpa-basics/blob/master/src/main/java/com/oonurkuru/jpa/services/SingleTableExample.java)
+[Single Table Strategy Mapping kodları](https://github.com/onurkuruu/jpa-basics/tree/master/src/main/java/com/oonurkuru/jpa/domains/Inheritance/SingleTableStrategy)
 
 #### Joined Table Strategy
 
@@ -126,7 +142,7 @@ public class Cat extends Animal {
 ```
 Kalıtım stratejisi **Joined** olarak belirlendi, **PrimaryKeyJoinColumn** notasyonu ile **Animal** sınıfının primary key alanı belirtildi. Bu sayede **Cat** tablosuna girilen her kayıt **Animal** sınıfından bir kayıt ile eşleştirilebilecek.
 
-[Joined Table Strategy Mapping Kodları]() ve [Kodları çalıştırmak için]()
+[Joined Table Strategy Mapping Kodları](https://github.com/onurkuruu/jpa-basics/tree/master/src/main/java/com/oonurkuru/jpa/domains/Inheritance/JoinedTableStrategy)
 
 #### Table Per Class Strategy
 
@@ -162,7 +178,7 @@ public class Cat extends Animal {
 }
 ```
 
-[Table Per Class Mapping Kodları]() ve [Kodları çalıştırmak için]()
+[Table Per Class Mapping Kodları](https://github.com/onurkuruu/jpa-basics/tree/master/src/main/java/com/oonurkuru/jpa/domains/Inheritance/TablePerClassStrategy)
 ### Entity Relationships
 
 Sınıflar arasında ilişkiler tanımlamak için 4 adet notasyon vardır. Bunları açıklamaya geçmeden önce bilinmesi gereken birkaç şey;
@@ -199,6 +215,7 @@ public class Toothbrush {
 }
 ```
 İlişkimizi 2 yönlü tanımladık ve ilişkinin sahibi olarak **Person** tarafını seçtik. **JoinColumn** notasyonu ile **foreign key** alanının ismini ve bu alanın **Person** tablosunda olacağını belirttik. İlişkimizin pasif tarafı olan **Tootbrush** tarafına **mappedBy** özelliğini ekledik.
+[OneToOne Relation Kodları](https://github.com/onurkuruu/jpa-basics/tree/master/src/main/java/com/oonurkuru/jpa/domains/Relations/OneToOne)
 
 #### OneToMany-ManyToOne Relation
 
@@ -207,7 +224,7 @@ public class Toothbrush {
 **OneToMany** ilişkisinin tek yönlü olması durumunda 3. bir ara tablo oluşarak iki sınıf arasındaki bağlantılı alanları tutar.
 
 **ManyToOne** ilişkisinin tek yönlü olması durumunda ekstra bir olay meydana gelmez. Yine 2 tablo oluşur ve **JoinColumn** notasyonundan dolayı **foreign key** alanı bu tabloda tutulur.
-
+[OneToMany - ManyToOne Kodları](https://github.com/onurkuruu/jpa-basics/tree/master/src/main/java/com/oonurkuru/jpa/domains/Relations/OneToMany_ManyToOne)
 
 ```java
 @Entity
@@ -234,7 +251,7 @@ public class School {
 #### ManyToMany Relation
 
 Bir sınıfın bir ya da daha fazla nesnesinin diğer sınıfta bir ya da birden fazla nesne ile ilişkili olması durumudur. Bu ilişkinin sağlanabilmesi için 3. tablo gereksinimi vardır. Oluşan ara tablo 2 sınıfın **primary key** alanlarını bir satır oluşturarak tutar. Eğer ilişkimiz 2 yönlü olacaksa pasif tarafı isteğimiz gibi belirleyip **mappedBy** özelliğini ekleriz. İlişkinin sahibi olan tarafa **JoinTable** notasyonunu ekleyerek oluşacak ara tablonun özelliklerini belirtebiliriz.
-
+[ManyToMany Relation Kodları](https://github.com/onurkuruu/jpa-basics/tree/master/src/main/java/com/oonurkuru/jpa/domains/Relations/ManyToMany)
 ```java
 @Entity
 @Table(name = "M_T_M_STUDENT")
