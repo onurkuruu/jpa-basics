@@ -13,13 +13,13 @@
 	- [ManyToMany Relation](#manytomany-relation)
 - [JPA Criteria API](#jpa-criteria-api)
 - [JPA Notasyonları](#jpa-notasyonları)
-  - [Sınıflar için geliştirilmiş notasyonlar](#sınıflar-icin-gelistirilmis-notasyonlar)
-  - [İlişkiler için geliştirilmiş notasyonlar](#iliskiler-icin-gelistirilmis-notasyonlar)
-  - [Değer üretme için geliştirilmiş notasyonlar](#deger-uretme-icin-gelistiriilmis-notasyonlar)
-  - [Callback metotları için geliştirilmiş notasyonlar](#callback-metodlari-icin-gelistirilmis-notasyonlar)
-  - [JPQL Sorguları içn geliştirilmiş notastonlar](#jpql-sorgulari-icin-gelistirilmis-notasyonlar)
-  - [JAVA EE için geliştirilmiş notasyonlar](#java-ee-icin-gelistirilmis-notasyonlar)
-  - [Mapping işlemleri için geliştirilmiş notasyonlar](#mapping-islemleri-icin-gelistirilmis-notasyonlar)
+  - [Sınıflar için geliştirilmiş notasyonlar](#sınıflar-için-geliştirilmiş-notasyonlar)
+  - [İlişkiler için geliştirilmiş notasyonlar](#ilişkiler-için-geliştirilmiş-notasyonlar)
+  - [Değer üretme için geliştirilmiş notasyonlar](#değer-üretme-için-geliştirilmiş-notasyonlar)
+  - [Callback metotları için geliştirilmiş notasyonlar](#callback-metodları-için-geliştirilmiş-notasyonlar)
+  - [JPQL Sorguları içn geliştirilmiş notastonlar](#jpql-sorguları-için-geliştirilmiş-notasyonlar)
+  - [JAVA EE için geliştirilmiş notasyonlar](#java-ee-için-geliştirilmiş-notasyonlar)
+  - [Mapping işlemleri için geliştirilmiş notasyonlar](#mapping-işlemleri-için-geliştirilmiş-notasyonlar)
 
 JPA(Java Persistence API), javanın ORM standardıdır. Java SE ve EE ortamlarını destekler.
 
