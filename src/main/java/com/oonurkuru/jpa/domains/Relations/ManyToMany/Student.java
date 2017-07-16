@@ -15,6 +15,9 @@ import java.util.List;
  */
 @Entity
 @Table(name = "M_T_M_STUDENT")
+@NamedQueries({
+        @NamedQuery(name = "Student.findAllStudents", query = "Select s from Student s")
+})
 public class Student {
 
     @Id

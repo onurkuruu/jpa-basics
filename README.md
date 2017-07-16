@@ -16,7 +16,7 @@ mvn exec:java -Dexec.mainClass="com.oonurkuru.jpa.RunExample"
 
 komutunu kullanarak projeyi çalıştırın.
 
-İçindekiler
+İçindekiler:
 
 - [JPA Mimarisi](#jpa-mimarisi)
 - [Entity Inheritance Strategies](#entity-inheritance-strategies)
@@ -28,6 +28,10 @@ komutunu kullanarak projeyi çalıştırın.
 	- [OneToMany-ManyToOne Relation](#onetomany-manytoone-relation)
 	- [ManyToMany Relation](#manytomany-relation)
 - [JPA Criteria API](#jpa-criteria-api)
+- [JPA NamedQuery](#jpa-namedquery)
+- [JPA Composite Primary Key](#jpa-composite-primary-key)
+	- [IdClass Composite Key](#idclass-composite-key)
+	- [EmbeddedId Composite Key](#embeddedid-composite-key)
 - [JPA Notasyonları](#jpa-notasyonları)
   - [Sınıflar için geliştirilmiş notasyonlar](#sınıflar-için-geliştirilmiş-notasyonlar)
   - [İlişkiler için geliştirilmiş notasyonlar](#ilişkiler-için-geliştirilmiş-notasyonlar)
@@ -293,6 +297,98 @@ List<Object> resultList = typedQuery.getResultList();
 
 Öncelikle **criteriaBuilder** nesnesi oluşturulur. Daha sonra builder kullanılarak bir **criteiaQuery** nesnesi oluşturulur. **criteriaQuery.select** ile sorgulanacak entity sınıfı belirtilir. **TypedQuery** ile sorguların dönüş tipini belirtilir.
 
+
+### JPA NamedQuery
+
+NamedQuery’ler JPQL kullanarak veri tabanı işlemleri yapmamızı sağlar. Entity sınıflarında @NamedQueries kullanarak ya da servis sınıfının içerisinde query oluşturarak veri tabanı işlemleri yapabiliriz. 
+
+Entity sınıfında şu şekilde kullanılırlar:
+
+```java
+@Entity
+@Table(name = "M_T_M_STUDENT")
+@NamedQueries({
+        @NamedQuery(name = "Student.findAllStudents", query = "Select s from Student s")
+})
+public class Student {
+```
+Entity sınıfında bu şekilde tanımladıktan sonra servis sınıflarında:
+
+```java
+Query query = entityManager.createNamedQuery("Student.findAllStudents", Student.class);List<Student> students = query.getResultList();
+```
+
+şeklinde kullanabiliriz. Eğer servis sınıfında query oluşturmak istersek:
+
+```java
+Query query = entityManager.createQuery("select s from Student s");
+```
+şeklinde kullanabiliriz.
+
+### JPA Composite Primary Key
+
+Projelerimizde her zaman tek alandan oluşan **primary key** olmayabilir. Birden fazla alanın birleşimi ile bir **primary key** oluşturabiliriz. Bunu yapmak için 2 seçeneğimiz var. Bunlar **IdClass** veya **EmbeddedId** kullanmaktır.
+
+#### IdClass Composite Key
+
+Bir **POJO** sınıfı oluşturarak** id** alanlarını belirtiriz. Daha sonra **IdClass** notasyonu ile **id** alanlarının bu sınıftan alınacağı belirtilir.
+
+```java
+public class ProjectIdClass implements Serializable{
+
+    private Integer projectId;
+    private Integer version;
+}
+
+@Entity
+@Table(name = "I_C_PROJECT")
+@IdClass(ProjectIdClass.class)
+public class Project {
+
+    @Id
+    @Column(name = "PROJECT_ID")
+    private Integer projectId;
+
+    @Id
+    @Column(name = "VERSION")
+    private Integer version;
+...
+}
+```
+
+Burada dikkat edilmesi gereken** ProjectIdClass** sınıfının **Serializable** arayüzünü implement etmesi gerekmektedir. 
+
+#### EmbeddedId Composite Key
+
+Bu yaklaşımda **Embeddable** olarak işaretli ve **Serializable arayüzünden implemente alan bir **POJO** sınıfı ve bir **entity** sınıfına ihtiyacımız vardır.
+
+```java
+@Embeddable
+public class ProjectIdClass implements Serializable {
+
+    @Column(name = "PROJECT_ID")
+    private Integer projectId;
+
+    @Column(name = "VERSION")
+    private Integer version;
+...
+}
+
+@Entity
+@Table(name = "E_I_PROJECT")
+public class Project {
+
+    @EmbeddedId
+    private ProjectIdClass projectId;
+
+    @Column(name = "NAME")
+    private String name;
+...
+}
+```
+**IdClass** ya da **EmbeddedId** etiketini kullanmadan da, **entity** içerisinde birden fazla id tanımlanabilir fakat derleme zamanında hata verecektir. **Entity** sınıfına **Serializable** arayüzünü implemente ettiğimizde kodumuz hatasız bir şekilde çalışacaktır(Hibernate için) fakat bu tavsiye edilen bir yöntem değildir. Bu şekilde bir yapı standartları bozacaktır ve taşınabilirliği bozabilir.
+
+[İlgili mapping kodları](https://github.com/onurkuruu/jpa-basics/tree/master/src/main/java/com/oonurkuru/jpa/domains/CompositePrimaryKey)
 
 ### JPA Notasyonları
 
@@ -652,4 +748,8 @@ public class PartTimeEmployee extends Employee {
 * **Lob**: Büyük verilerin veri tabanında kalıcı olmasını sağlamak için kullanılır. Örneğin resmin byte halini veri tabanında tutmak için.
 
 * **Table**: Entity sınıfının veri tabanında karşılık geldiği tabloya ait özelliklerin tanımlanabildiği notasyon.
+
+
+
+
 
