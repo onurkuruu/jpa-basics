@@ -1,5 +1,6 @@
 package com.oonurkuru.jpa.examples;
 
+import com.oonurkuru.jpa.annotations.ExampleClassCode;
 import com.oonurkuru.jpa.domains.Inheritance.TablePerClassStrategy.Cat;
 import com.oonurkuru.jpa.domains.Inheritance.TablePerClassStrategy.Dog;
 
@@ -12,6 +13,7 @@ import javax.persistence.EntityManager;
 /**
  * JPA Inheritance özelliği, Table Per Class Strateji için oluşturulmuş test kodu.
  */
+@ExampleClassCode(classCode = "6")
 public class TablePerClassExample implements Example {
 
     public void runExample(EntityManager entityManager) {

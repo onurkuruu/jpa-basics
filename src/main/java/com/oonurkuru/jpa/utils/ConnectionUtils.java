@@ -11,8 +11,7 @@ import javax.persistence.Persistence;
 /**
  * JPA connectionlarını ve transactionları açıp kapatma fonksiyonlarından oluşur.
  */
-public class ConnectionUtils {
-
+public abstract class ConnectionUtils {
 
     /**
      * Entity Manager Factory üretme fonksiyonu.
@@ -45,28 +44,6 @@ public class ConnectionUtils {
     }
 
     /**
-     * EntityManager ve EntityManagerFactory bağlantılarını kapatmayı sağlar.
-     *
-     * @param entityManager verilen parametre kullanılarak entitymManager ve entityManagerFactory nesnelerine ulaşılır
-     *                      ve bağlantı kapatılır.
-     */
-    public static void closeConnections(EntityManager entityManager) {
-
-        EntityManagerFactory entityManagerFactory;
-
-        try {
-
-            entityManagerFactory = entityManager.getEntityManagerFactory();
-            entityManager.close();
-            entityManagerFactory.close();
-
-        } catch (Exception e) {
-            System.out.println("An error occurred when connections closing: " + e);
-        }
-
-    }
-
-    /**
      * @param entityManager için transaction başlatır.
      */
     public static void startTransaction(EntityManager entityManager) {
@@ -89,6 +66,31 @@ public class ConnectionUtils {
             System.out.println("Transaction failed to commit: " + e);
         }
 
+    }
+
+    /**
+     * Entity manager factory nesnesinin kapatılmasını sağlar.
+     * @param entityManagerFactory nesnesinin bağlantısının kapatılmasını sağlar.
+     */
+    public static void closeEntityManagerFactory(EntityManagerFactory entityManagerFactory) {
+
+        try {
+            entityManagerFactory.close();
+        } catch (Exception e) {
+            System.out.println("EntityManagerFactory didn't close. " + e);
+        }
+    }
+
+    /**
+     * Entity Manager nesnesinin kapatılmasını sağlar
+     * @param entityManager nesnesinin bağlantısının kapatılmasını sağlar.
+     */
+    public static void closeEntityManager(EntityManager entityManager) {
+        try {
+            entityManager.close();
+        } catch (Exception e) {
+            System.out.println("EntityManager didn't close. " + e);
+        }
     }
 
 }

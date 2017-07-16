@@ -1,5 +1,6 @@
 package com.oonurkuru.jpa.examples;
 
+import com.oonurkuru.jpa.annotations.ExampleClassCode;
 import com.oonurkuru.jpa.domains.Inheritance.SingleTableStrategy.Cat;
 import com.oonurkuru.jpa.domains.Inheritance.SingleTableStrategy.Dog;
 
@@ -12,6 +13,7 @@ import javax.persistence.EntityManager;
 /**
  * JPA Inheritance özelliği, Single Table Strategy için hazırlanmış test kodu
  */
+@ExampleClassCode(classCode = "5")
 public class SingleTableExample implements Example {
 
     public void runExample(EntityManager entityManager) {
